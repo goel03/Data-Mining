@@ -1,0 +1,70 @@
+import pandas as pd
+import numpy as np
+!pip install efficient-apriori
+
+
+from efficient_apriori import apriori
+
+transc=[
+    ['Milk','Diaper','Tea'],
+    ['Milk','Diaper','Tea','Butter'],
+    ['Milk','Diaper','Tea'],
+    ['Milk','Diaper','Bread','Butter'],
+    ['Milk','Diaper','Bread','Butter','Tea']
+]
+transc
+
+
+
+itemset, rules = apriori(transc,min_support=0.5, min_confidence= 0.75)
+itemset
+
+
+rules
+
+
+itemset, rules = apriori(transc , min_support=1, min_confidence= 1)
+itemset
+
+rules
+
+itemset, rules = apriori(transc , min_support=0.6, min_confidence= 0.6)
+itemset
+
+
+rules
+df=pd.read_csv("1000i.csv",header=None,names=["receipt no.","food","quantity"])
+df
+
+
+dict={
+    1:"milk",2:"sugar",3:"chocolate",4:"apples",5:"curd"
+}
+d1=pd.DataFrame(df)
+d1
+
+
+d2=pd.DataFrame(df)
+d2
+
+
+d2["food"].map(dict)
+
+
+d1['food'] = d1['food'].replace(dict)
+d1
+
+transactions=d1.groupby(d1['receipt no.'])['food'].apply(lambda x:list(x))
+transactions
+
+itemset1,rules1=apriori(transactions,min_support=0.5,min_confidence=0.75)
+itemset1
+
+rules1
+
+itemset1,rules1=apriori(transactions,min_support=0.3,min_confidence=0.6)
+itemset1
+
+
+
+
