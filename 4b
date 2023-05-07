@@ -1,0 +1,28 @@
+
+import pandas as pd
+import numpy as np
+!pip install efficient-apriori
+
+
+
+from efficient_apriori import apriori
+     
+
+ppd=pd.read_csv("groceriesDataset.csv")
+     
+
+ppd
+     
+
+
+pd1=ppd.iloc[:,0:3]
+     
+
+pd1                                      
+     
+
+pd1["Item 2"].unique()
+
+transactions=pd1.groupby(pd1['ITEM 0'])['food'].apply(lambda x:list(x))
+transaction
+
